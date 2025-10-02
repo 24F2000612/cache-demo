@@ -1,0 +1,21 @@
+name: Cache Dependencies Example
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cache-deps:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache dependencies
+        id: cache-step
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/mydeps
+          key: cache-650309a
+
+      - name: prime-cache-650309a
+        run: echo "Cache hit? ${{ steps.cache-step.outputs.cache-hit }}"
