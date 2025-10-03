@@ -13,6 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Show current directory
+        run: pwd
+
+      - name: List files in current directory
+        run: ls -la
+
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
       
@@ -20,16 +26,16 @@ jobs:
         run: uv venv
 
       - name: Cache uv dependencies
-        id: prime-cache-650309a  # id exactly as required
+        id: prime-cache-650309a
         uses: actions/cache@v4
         with:
           path: ~/.cache/uv
-          key: cache-650309a  # key exactly as required
+          key: cache-650309a
 
       - name: Install dependencies
-        run: uv pip install -r requirements.txt
+        run: uv pip install -r ./requirements.txt
 
-      - name: prime-cache-650309a  # step name exactly as required
+      - name: prime-cache-650309a
         run: |
           if [[ "${{ steps.prime-cache-650309a.outputs.cache-hit }}" == "true" ]]; then
             echo "Cache hit! Dependencies were restored."
